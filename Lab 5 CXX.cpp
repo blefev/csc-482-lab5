@@ -43,11 +43,12 @@ MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B) {
 			uint64_t sum = 0;
 
 			for (size_t k = 0; k < B.size(); k++) {
-				sum = A[i][k] * B[k][j];
-				C[i]
+				sum += A[i][k] * B[k][j];
+				C[i][j] = sum;
 			}
 		}
 	}
+	return C;
 }
 
 
@@ -58,6 +59,43 @@ uint64_t mypow(uint64_t x, uint8_t n) {
 	uint64_t ans = 1;
 	size_t i = 0;
 
+
+	vector<vector<uint64_t> > A(2, vector<uint64_t>(2));
+	vector<vector<uint64_t> > B(2, vector<uint64_t>(2));
+
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			A[i][j] = i;
+			B[i][j] = j;
+		}
+	}
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			cout << A[i][j] << " ";
+		}
+		cout << "\n";
+	}
+	cout << endl;
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			cout << B[i][j] << " ";
+		}
+		cout << "\n";
+	}
+	cout << endl;
+
+	vector<vector<uint64_t> > C = MatMul(A, B);
+
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			cout << C[i][j] << " ";;
+		}
+		cout << "\n";
+	}
+
+
+
+
 	while (n > 0) {
 		if (n & 1) {
 			ans *= x;
@@ -67,6 +105,7 @@ uint64_t mypow(uint64_t x, uint8_t n) {
 		x *= x;
 		i++;
 	}
+
 	cout << "Did " << i << " loops\n";
 	cout << ans << endl;
 	return ans;
@@ -101,13 +140,14 @@ uint64_t FibMatrix(uint64_t x) {
 
 
 matrixVec matrixMultiplication(matrixVec matrixA, matrixVec matrixB) {
-	int x;
+	//int x;
 	matrixVec result;
 	for (size_t i = 0; i < matrixA.size(); i++) {
 		for (size_t j = 0; j < matrixA.size(); j++) {
 
 		}
 	}
+	return result;
 }
 
 
@@ -118,15 +158,15 @@ matrixVec dotProduct(matrixVec matrix) {
 
 template <typename T>
 array<array<uint64_t, 10>, 10> MatrixPower(array<array<uint64_t, 10>, 10> matrix, size_t n) {
-	uint64_t ans = ;
+	uint64_t ans ;
 
 	while (n > 0) {
 		if (n & 1) {
-			ans = x;
+//			ans = x;
 		}
 
 		n >>= 1;
-		x *= x;
+//		x *= x;
 	}
 
 	return ans;
