@@ -6,8 +6,7 @@
 #include <map>
 #include <array>
 #define ARRAY_SIZE 10000
-#define matrix2x2 array<array<uint64_t, 2>, 2>
-#define matrixVec vector<vector<uint64_t>>
+#define matrixVec vector<vector<uint64_t> >
 using namespace std;
 
 uint64_t FibLoop(size_t);
@@ -15,26 +14,51 @@ uint64_t FibRecur(uint64_t);
 uint64_t FibRecurDP(size_t);
 uint64_t FibRecurDPWorker(size_t, array<uint64_t, ARRAY_SIZE> &xs);
 uint64_t FibMatrix(uint64_t);
-array<array<uint64_t, 10>, 10> MatrixPower(array<array<uint64_t,10>, 10>);
-matrixVec dotProduct(matrixVec matrix, size_t n);
+matrixVec MatrixPower(matrixVec, int);
+matrixVec MatrixMultiplication(matrixVec A, matrixVec B);
+bool testAllFibFuncs();
 
-vector<vector<uint64_t> >
-MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B);
+void printMatrix(matrixVec v) {
+	for (int i = 0; i < v.size(); i++) {
+		for (int j = 0; j < v[0].size(); j++) {
+			cout << v[i][j] << " ";
+		}
+		cout << "\n";
+	}
+}
+
+int main()
+{	
+	size_t inp = 0;
+
+	matrixVec mat(2, vector<uint64_t>(2, 1));
+	matrixVec ans;
+	cout << "Mat: \n";
+	printMatrix(mat);
+	cout << "\n";
+	ans = MatrixPower(mat, 3);
+	cout << "Ans: \n";
+	printMatrix(ans);
+	cout << "\n";
+
+
+	/*
+	while (cout << "Fib : " && cin >> inp && inp != 0) {
+		cout << FibLoop(inp) << endl;
+	}
+	*/
+
+	return 0;
+}
 
 
 
 
 
-
-vector<vector<uint64_t> >
-MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B) {
-	size_t a_rows = A.size();
-	size_t a_cols = A[0].size();
-	size_t b_rows = B.size();
-	size_t b_cols = B[0].size();
-
-	// create a vector with rows = a_rows
-	vector<vector<uint64_t> > C(a_cols, vector<uint64_t>(b_rows));
+matrixVec
+MatrixMultiplication(matrixVec A, matrixVec B) {
+	// create a vector with rows = a rows, cols = b cols
+	matrixVec C(A[0].size(), vector<uint64_t>(B.size()));
 
 	// go through each row
 	for (size_t i = 0; i < A.size(); i++) {
@@ -55,79 +79,36 @@ MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B) {
 
 
 
-uint64_t mypow(uint64_t x, uint8_t n) {
-	uint64_t ans = 1;
+matrixVec MatrixPower(matrixVec x, int n) {
 	size_t i = 0;
 
-
-	vector<vector<uint64_t> > A(2, vector<uint64_t>(2));
-	vector<vector<uint64_t> > B(2, vector<uint64_t>(2));
-
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			A[i][j] = i;
-			B[i][j] = j;
-		}
-	}
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			cout << A[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	cout << endl;
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			cout << B[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	cout << endl;
-
-	vector<vector<uint64_t> > C = MatMul(A, B);
-
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			cout << C[i][j] << " ";;
-		}
-		cout << "\n";
-	}
-
+	matrixVec ans(x.size(), vector<uint64_t>(x.size()));
+	ans = x;
+	matrixVec y(x.size(), vector<uint64_t>(x.size()));
+	y = x;
 
 
 
 	while (n > 0) {
 		if (n & 1) {
-			ans *= x;
+			if (ans.empty()) {
+				ans = y;
+			} else {
+				ans = MatrixMultiplication(ans, y);
+			}
 		}
 
 		n >>= 1;
-		x *= x;
+		x = MatrixMultiplication(x, x);
 		i++;
 	}
 
-	cout << "Did " << i << " loops\n";
-	cout << ans << endl;
 	return ans;
 }
 
 
 
-bool testAllFibFuncs();
 
-int main()
-{	
-	size_t inp = 0;
-
-	mypow(2, 13);
-	/*
-	while (cout << "Fib : " && cin >> inp && inp != 0) {
-		cout << FibLoop(inp) << endl;
-	}
-	*/
-
-	return 0;
-}
 
 bool testAllFibFuncs() {
 	return false;
@@ -136,40 +117,6 @@ bool testAllFibFuncs() {
 uint64_t FibMatrix(uint64_t x) {
 
 	return 1;
-}
-
-
-matrixVec matrixMultiplication(matrixVec matrixA, matrixVec matrixB) {
-	//int x;
-	matrixVec result;
-	for (size_t i = 0; i < matrixA.size(); i++) {
-		for (size_t j = 0; j < matrixA.size(); j++) {
-
-		}
-	}
-	return result;
-}
-
-
-matrixVec dotProduct(matrixVec matrix) {
-	matrixVec ret{ 0 };
-	return ret;
-}
-
-template <typename T>
-array<array<uint64_t, 10>, 10> MatrixPower(array<array<uint64_t, 10>, 10> matrix, size_t n) {
-	uint64_t ans ;
-
-	while (n > 0) {
-		if (n & 1) {
-//			ans = x;
-		}
-
-		n >>= 1;
-//		x *= x;
-	}
-
-	return ans;
 }
 
 
