@@ -22,7 +22,7 @@ int main()
 
 
 	while (cout << "Fib : " && cin >> inp && inp != 0) {
-		cout << FibRecurDP(inp) << endl;
+		cout << FibLoop(inp) << endl;
 	}
 
 	return 0;
@@ -33,24 +33,14 @@ bool testAllFibFuncs() {
 }
 
 uint64_t FibLoop(uint64_t x) {
-	static uint64_t fibs[ARRAY_SIZE] = { 1, 1 };
+	array<uint64_t, ARRAY_SIZE> fibs{ 0, 1, 1 };
 
 	if (fibs[x] != NULL) {
 		return fibs[x];
 	}
 
-	for (size_t i = 0; i <= x; i++) {
+	for (size_t i = 3; i <= x; i++) {
 		if (fibs[i] == NULL) {
-
-			if (i == 0) {
-				fibs[i] = 0;
-				continue;
-			}
-			if (i == 1 || i == 2) {
-				fibs[i] = 1;
-				continue;
-			}
-
 			fibs[i] = fibs[i - 1] + fibs[i - 2];
 		}
 	}
@@ -65,7 +55,7 @@ uint64_t FibRecur(uint64_t x) {
 }
 
 uint64_t FibRecurDP(uint64_t x) {
-	static array<uint64_t, ARRAY_SIZE> fibs { 0, 1, 1, NULL };
+	static array<uint64_t, ARRAY_SIZE> fibs { 0, 1, 1 };
 	return FibRecurDPWorker(x, fibs);
 }
 
