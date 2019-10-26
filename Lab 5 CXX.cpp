@@ -6,24 +6,86 @@
 #include <map>
 #include <array>
 #define ARRAY_SIZE 10000
-
+#define matrix2x2 array<array<uint64_t, 2>, 2>
+#define matrixVec vector<vector<uint64_t>>
 using namespace std;
 
-uint64_t FibLoop(uint64_t);
+uint64_t FibLoop(size_t);
 uint64_t FibRecur(uint64_t);
-uint64_t FibRecurDP(uint64_t);
-uint64_t FibRecurDPWorker(uint64_t, array<uint64_t, ARRAY_SIZE> &xs);
+uint64_t FibRecurDP(size_t);
+uint64_t FibRecurDPWorker(size_t, array<uint64_t, ARRAY_SIZE> &xs);
 uint64_t FibMatrix(uint64_t);
+array<array<uint64_t, 10>, 10> MatrixPower(array<array<uint64_t,10>, 10>);
+matrixVec dotProduct(matrixVec matrix, size_t n);
+
+vector<vector<uint64_t> >
+MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B);
+
+
+
+
+
+
+vector<vector<uint64_t> >
+MatMul(vector<vector<uint64_t> > A, vector<vector<uint64_t> > B) {
+	size_t a_rows = A.size();
+	size_t a_cols = A[0].size();
+	size_t b_rows = B.size();
+	size_t b_cols = B[0].size();
+
+	// create a vector with rows = a_rows
+	vector<vector<uint64_t> > C(a_cols, vector<uint64_t>(b_rows));
+
+	// go through each row
+	for (size_t i = 0; i < A.size(); i++) {
+		// go through each column
+		for (size_t j = 0; j < B[0].size(); j++) {
+			uint64_t sum = 0;
+
+			for (size_t k = 0; k < B.size(); k++) {
+				sum = A[i][k] * B[k][j];
+				C[i]
+			}
+		}
+	}
+}
+
+
+
+
+
+uint64_t mypow(uint64_t x, uint8_t n) {
+	uint64_t ans = 1;
+	size_t i = 0;
+
+	while (n > 0) {
+		if (n & 1) {
+			ans *= x;
+		}
+
+		n >>= 1;
+		x *= x;
+		i++;
+	}
+	cout << "Did " << i << " loops\n";
+	cout << ans << endl;
+	return ans;
+}
+
+
+
 bool testAllFibFuncs();
 
 int main()
 {	
-	uint64_t inp = 0;
+	size_t inp = 0;
 
-
+	mypow(2, 13);
+	/*
 	while (cout << "Fib : " && cin >> inp && inp != 0) {
 		cout << FibLoop(inp) << endl;
 	}
+	*/
 
 	return 0;
 }
@@ -32,7 +94,46 @@ bool testAllFibFuncs() {
 	return false;
 }
 
-uint64_t FibLoop(uint64_t x) {
+uint64_t FibMatrix(uint64_t x) {
+
+	return 1;
+}
+
+
+matrixVec matrixMultiplication(matrixVec matrixA, matrixVec matrixB) {
+	int x;
+	matrixVec result;
+	for (size_t i = 0; i < matrixA.size(); i++) {
+		for (size_t j = 0; j < matrixA.size(); j++) {
+
+		}
+	}
+}
+
+
+matrixVec dotProduct(matrixVec matrix) {
+	matrixVec ret{ 0 };
+	return ret;
+}
+
+template <typename T>
+array<array<uint64_t, 10>, 10> MatrixPower(array<array<uint64_t, 10>, 10> matrix, size_t n) {
+	uint64_t ans = ;
+
+	while (n > 0) {
+		if (n & 1) {
+			ans = x;
+		}
+
+		n >>= 1;
+		x *= x;
+	}
+
+	return ans;
+}
+
+
+uint64_t FibLoop(size_t x) {
 	array<uint64_t, ARRAY_SIZE> fibs{ 0, 1, 1 };
 
 	if (fibs[x] != NULL) {
@@ -54,12 +155,12 @@ uint64_t FibRecur(uint64_t x) {
 	return FibRecur(x - 1) + FibRecur(x - 2);
 }
 
-uint64_t FibRecurDP(uint64_t x) {
+uint64_t FibRecurDP(size_t x) {
 	static array<uint64_t, ARRAY_SIZE> fibs { 0, 1, 1 };
 	return FibRecurDPWorker(x, fibs);
 }
 
-uint64_t FibRecurDPWorker(uint64_t x, array<uint64_t, ARRAY_SIZE> &xs) {
+uint64_t FibRecurDPWorker(size_t x, array<uint64_t, ARRAY_SIZE> &xs) {
 	if (xs[x] != NULL) {
 		return xs[x];
 	}
@@ -67,10 +168,7 @@ uint64_t FibRecurDPWorker(uint64_t x, array<uint64_t, ARRAY_SIZE> &xs) {
 	return FibRecurDPWorker(x - 1, xs) + FibRecurDPWorker(x - 2, xs);
 }
 
-uint64_t FibMatrix(uint64_t x) {
 
-	return 1;
-}
 
 //MatrixPower
 
@@ -84,4 +182,5 @@ uint64_t FibMatrix(uint64_t x) {
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
 
