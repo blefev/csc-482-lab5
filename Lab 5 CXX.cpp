@@ -31,7 +31,7 @@ int main()
 {	
 	size_t inp = 0;
 
-	for (size_t i = 1; i < 10; i++) {
+	for (size_t i = 0; i < 10; i++) {
 		cout << "f(" << i << ")\n";
 		cout << "FibLoop: " << FibLoop(i) << "\n";
 		cout << "FibRecur: " << FibRecur(i) << "\n";
@@ -75,16 +75,16 @@ MatrixMultiplication(matrixVec A, matrixVec B) {
 
 
 uint64_t FibMatrix(uint64_t x) {
-	matrixVec squareMatrix(2, vector<uint64_t>(2, 1));
-	squareMatrix[0][0] = 0;
+	if (x == 0) return 0;
 
-	matrixVec f0f1(2, vector<uint64_t>(1, 1));
+	matrixVec squareMatrix(2, vector<uint64_t>(2, 1)),
+			  f0f1(2, vector<uint64_t>(1, 1)),
+			  resultMatrix;
+
+	squareMatrix[0][0] = 0;	
 	f0f1[0][0] = 0;
 
-	matrixVec resultMatrix;
-	
-	matrixVec matrixPower = MatrixPower(squareMatrix, x);
-	resultMatrix = MatrixMultiplication(matrixPower, f0f1);
+	resultMatrix = MatrixMultiplication(MatrixPower(squareMatrix, x), f0f1);
 
 	return resultMatrix[0][0];
 }
@@ -147,6 +147,7 @@ uint64_t FibRecurDP(size_t x) {
 }
 
 uint64_t FibRecurDPWorker(size_t x, array<uint64_t, ARRAY_SIZE> &xs) {
+	if (x == 0) return 0;
 	if (xs[x] != NULL) {
 		return xs[x];
 	}
