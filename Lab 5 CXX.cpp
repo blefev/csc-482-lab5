@@ -31,22 +31,14 @@ int main()
 {	
 	size_t inp = 0;
 
-	matrixVec mat(2, vector<uint64_t>(2, 1));
-	matrixVec ans;
-	cout << "Mat: \n";
-	printMatrix(mat);
-	cout << "\n";
-	ans = MatrixPower(mat, 3);
-	cout << "Ans: \n";
-	printMatrix(ans);
-	cout << "\n";
-
-
-	/*
-	while (cout << "Fib : " && cin >> inp && inp != 0) {
-		cout << FibLoop(inp) << endl;
+	for (size_t i = 1; i < 10; i++) {
+		cout << "f(" << i << ")\n";
+		cout << "FibLoop: " << FibLoop(i) << "\n";
+		cout << "FibRecur: " << FibRecur(i) << "\n";
+		cout << "FibRecurDP: " << FibRecurDP(i) << "\n";
+		cout << "FibMatrix: " << FibMatrix(i) << "\n";
+		cout << "\n\n";
 	}
-	*/
 
 	return 0;
 }
@@ -57,6 +49,12 @@ int main()
 
 matrixVec
 MatrixMultiplication(matrixVec A, matrixVec B) {
+	if (A[0].size() != B.size()) {
+		cout << "MatrixMultiplication: matrices are not multiplicable. Exiting...\n";
+		exit(1);
+	}
+
+
 	// create a vector with rows = a rows, cols = b cols
 	matrixVec C(A[0].size(), vector<uint64_t>(B.size()));
 
@@ -76,31 +74,37 @@ MatrixMultiplication(matrixVec A, matrixVec B) {
 }
 
 
+uint64_t FibMatrix(uint64_t x) {
+	matrixVec squareMatrix(2, vector<uint64_t>(2, 1));
+	squareMatrix[0][0] = 0;
 
+	matrixVec f0f1(2, vector<uint64_t>(1, 1));
+	f0f1[0][0] = 0;
+
+	matrixVec resultMatrix;
+	
+	matrixVec matrixPower = MatrixPower(squareMatrix, x);
+	resultMatrix = MatrixMultiplication(matrixPower, f0f1);
+
+	return resultMatrix[0][0];
+}
 
 
 matrixVec MatrixPower(matrixVec x, int n) {
-	size_t i = 0;
+	if (x.size() != x[0].size()) {
+		cout << "MatrixPower: matrix is not square. Exiting...\n";
+		exit(1);
+	}
 
-	matrixVec ans(x.size(), vector<uint64_t>(x.size()));
-	ans = x;
-	matrixVec y(x.size(), vector<uint64_t>(x.size()));
-	y = x;
-
-
+	matrixVec ans;
 
 	while (n > 0) {
 		if (n & 1) {
-			if (ans.empty()) {
-				ans = y;
-			} else {
-				ans = MatrixMultiplication(ans, y);
-			}
+			ans = ans.empty() ? x : MatrixMultiplication(x, ans);
 		}
 
 		n >>= 1;
 		x = MatrixMultiplication(x, x);
-		i++;
 	}
 
 	return ans;
@@ -112,11 +116,6 @@ matrixVec MatrixPower(matrixVec x, int n) {
 
 bool testAllFibFuncs() {
 	return false;
-}
-
-uint64_t FibMatrix(uint64_t x) {
-
-	return 1;
 }
 
 
@@ -154,20 +153,3 @@ uint64_t FibRecurDPWorker(size_t x, array<uint64_t, ARRAY_SIZE> &xs) {
 
 	return FibRecurDPWorker(x - 1, xs) + FibRecurDPWorker(x - 2, xs);
 }
-
-
-
-//MatrixPower
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
-
-
