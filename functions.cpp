@@ -83,20 +83,20 @@ matrixVec MatrixPower(matrixVec matrix, int power) {
 
 uint64_t FibLoop(size_t x) {
 	// set fib(0) and fib(1) as base cases
-	vector<uint64_t> fibs{ 1, 1 };
+	vector<uint64_t> fibsCache{ 1, 1 };
 
 	// if answer is cached, return it
-	if (fibs.size() > x) {
-		return fibs[x];
+	if (fibsCache.size() > x) {
+		return fibsCache[x];
 	}
 
 	// iterate through from 2 to input, calculate fibonaccis
 	for (size_t i = 2; i <= x; i++) {
-		if (fibs.size() <= i) {
-			fibs.push_back(fibs[i - 1] + fibs[i - 2]);
+		if (fibsCache.size() <= i) {
+			fibsCache.push_back(fibsCache[i - 1] + fibsCache[i - 2]);
 		}
 	}
-	return fibs[x];
+	return fibsCache[x];
 }
 
 uint64_t FibRecur(uint64_t x) {
@@ -113,16 +113,20 @@ uint64_t FibRecurDP(size_t x) {
 	return FibRecurDPWorker(x, fibs);
 }
 
-uint64_t FibRecurDPWorker(size_t x, vector<uint64_t> &xs) {
+uint64_t FibRecurDPWorker(size_t x, vector<uint64_t> &fibsCache) {
+	// base case
 	if (x < 2) return 1;
 
 	uint64_t ans;
 
-	if (xs.size() > x) {
-		return xs[x];
+	// return answer if in cache
+	if (fibsCache.size() > x) {
+		return fibsCache[x];
 	}
 
-	ans = FibRecurDPWorker(x - 1, xs) + FibRecurDPWorker(x - 2, xs);
-	xs.push_back(ans);
+	// recursively find answer
+	ans = FibRecurDPWorker(x - 1, fibsCache) + FibRecurDPWorker(x - 2, fibsCache);
+	// store answer
+	fibsCache.push_back(ans);
 	return ans;
 }
