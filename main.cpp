@@ -11,7 +11,7 @@
 using namespace std;
 
 long double timeFunction(string funcName, uint64_t param);
-bool testAllFibFuncs();
+bool testAllFuncs();
 bool testFibFunc(string funcName, int X);
 void measureAllFuncs();
 void measureAndRecordFunc(string funcName, uint64_t X, int nTrials = 100);
@@ -25,7 +25,7 @@ map<string, function<uint64_t(uint64_t)>> namesToFuncs{
 
 map<string, uint64_t> funcMaxXs{
 	{"FibLoop", 92},
-	{"FibRecur", 30},
+	{"FibRecur", 40},
 	{"FibRecurDP", 92},
 	{"FibMatrix", 92},
 };
@@ -33,7 +33,7 @@ map<string, uint64_t> funcMaxXs{
 int main(int argc, char** argv)
 {
 	if (argc > 1 && string(argv[1]) == "test") {
-		return testAllFibFuncs();
+		return testAllFuncs();
 	}
 	
 	measureAllFuncs();
@@ -70,14 +70,14 @@ void measureAndRecordFunc(string funcName, uint64_t X, int nTrials) {
 		avg = sum / nTrials;
 		// i (n) needs to be represented as number of bits
 		bitset<64> bits(i);
-		fout << bits.count() << "\t" << i << "\t" << avg << "\n";
+		fout << bits.count() << "\t" << i << "\t" << avg << endl;
 		
 	}
 	cout << "\n";
 	fout.close();
 }
 
-bool testAllFibFuncs() {
+bool testAllFuncs() {
 	// test each function by name
 	for (auto& it : namesToFuncs) {
 		string funcName = it.first; // map value is function name

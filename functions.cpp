@@ -85,11 +85,6 @@ uint64_t FibLoop(size_t x) {
 	// set fib(0) and fib(1) as base cases
 	vector<uint64_t> fibsCache{ 1, 1 };
 
-	// if answer is cached, return it
-	if (fibsCache.size() > x) {
-		return fibsCache[x];
-	}
-
 	// iterate through from 2 to input, calculate fibonaccis
 	for (size_t i = 2; i <= x; i++) {
 		if (fibsCache.size() <= i) {
