@@ -32,7 +32,7 @@ map<string, uint64_t> funcMaxXs{
 
 int main(int argc, char** argv)
 {
-	if (argv[1] == "test") {
+	if (argc > 1 && string(argv[1]) == "test") {
 		return testAllFibFuncs();
 	}
 	
@@ -121,7 +121,7 @@ long double timeFunction(string funcName, uint64_t param) {
 	high_resolution_clock::time_point end = high_resolution_clock::now();
 
 	// calculate timeTaken
-	duration<long double> timeTaken = duration_cast<duration<long double>>(end - start);
+	milliseconds timeTaken = duration_cast<milliseconds>(end - start);
 
 	return timeTaken.count();
 }

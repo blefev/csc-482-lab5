@@ -1,6 +1,6 @@
 # gnu plot
 set key autotitle columnhead
-set ylabel "Time in nanoseconds"
+set ylabel "Time in milliseconds"
 
 stats '../output/FibRecurDP' using 2:3
 set title 'FibRecurDP N vs Time (ns)'
