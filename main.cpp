@@ -121,9 +121,9 @@ long double timeFunction(string funcName, uint64_t param) {
 	high_resolution_clock::time_point end = high_resolution_clock::now();
 
 	// calculate timeTaken
-	milliseconds timeTaken = duration_cast<milliseconds>(end - start);
+	duration<long double> timeTaken = duration_cast<duration<long double>>(end - start);
 
-	return timeTaken.count();
+	return timeTaken.count() * 1000;
 }
 
 
