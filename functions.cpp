@@ -72,14 +72,6 @@ matrixVec MatrixPower(matrixVec x, int n) {
 }
 
 
-
-
-
-bool testAllFibFuncs() {
-	return false;
-}
-
-
 uint64_t FibLoop(size_t x) {
 	array<uint64_t, ARRAY_SIZE> fibs{ 0, 1, 1 };
 
@@ -103,15 +95,21 @@ uint64_t FibRecur(uint64_t x) {
 }
 
 uint64_t FibRecurDP(size_t x) {
-	static array<uint64_t, ARRAY_SIZE> fibs{ 0, 1, 1 };
+	vector<uint64_t> fibs{ 0, 1, 1 };
 	return FibRecurDPWorker(x, fibs);
 }
 
-uint64_t FibRecurDPWorker(size_t x, array<uint64_t, ARRAY_SIZE> & xs) {
+uint64_t FibRecurDPWorker(size_t x, vector<uint64_t> &xs) {
 	if (x == 0) return 0;
-	if (xs[x] != NULL) {
+	if (x <= 2) return 1;
+
+	uint64_t ans;
+
+	if (xs.size() > x) {
 		return xs[x];
 	}
 
-	return FibRecurDPWorker(x - 1, xs) + FibRecurDPWorker(x - 2, xs);
+	ans = FibRecurDPWorker(x - 1, xs) + FibRecurDPWorker(x - 2, xs);
+	xs.push_back(ans);
+	return ans;
 }
