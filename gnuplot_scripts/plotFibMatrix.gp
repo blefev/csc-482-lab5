@@ -3,8 +3,8 @@ set key autotitle columnhead
 set ylabel "Time in milliseconds"
 
 stats '../output/FibMatrix' using 2:3
-set title 'FibMatrix N vs Time (ns)'
-set xlabel "N"
+set title 'FibMatrix X vs Time (ms)'
+set xlabel "X"
 n = STATS_max_x
 t = STATS_max_y
 a = t / (n*log(n))

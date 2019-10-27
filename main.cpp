@@ -16,18 +16,20 @@ bool testFibFunc(string funcName, int X);
 void measureAllFuncs();
 void measureAndRecordFunc(string funcName, uint64_t X, int nTrials = 100);
 
-map<string, function<uint64_t(uint64_t)>> namesToFuncs{
+map<string, function<uint64_t(uint64_t)>> namesToFuncs {
 	{"FibLoop", FibLoop},
 	{"FibRecur", FibRecur},
 	{"FibRecurDP", FibRecurDP},
-	{"FibMatrix", FibMatrix}
+	{"FibMatrix", FibMatrix},
+	{"FibRecurDPTail", FibRecurDPTail}
 };
 
 map<string, uint64_t> funcMaxXs{
 	{"FibLoop", 92},
-	{"FibRecur", 40},
+	{"FibRecur", 30},
 	{"FibRecurDP", 92},
 	{"FibMatrix", 92},
+	{"FibRecurDPTail", 92}
 };
 
 int main(int argc, char** argv)

@@ -3,8 +3,8 @@ set key autotitle columnhead
 set ylabel "Time in milliseconds"
 
 stats '../output/FibRecur' using 2:3
-set title 'FibRecur N vs Time (ns)'
-set xlabel "N"
+set title 'FibRecur X vs Time (ms)'
+set xlabel "X"
 n = STATS_max_x
 t = STATS_max_y
 a = t / (2**n)

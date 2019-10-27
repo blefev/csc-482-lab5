@@ -103,24 +103,35 @@ uint64_t FibRecur(uint64_t x) {
 
 uint64_t FibRecurDP(size_t x) {
 	// vector cache
-	vector<uint64_t> fibs{ 1, 1 };
-	return FibRecurDPWorker(x, fibs);
+	map<uint64_t, uint64_t> fibsCache{ {0, 1}, {1, 1} };
+	return FibRecurDPWorker(x, fibsCache);
 }
 
-uint64_t FibRecurDPWorker(size_t x, vector<uint64_t> &fibsCache) {
+uint64_t FibRecurDPWorker(size_t x, map<uint64_t, uint64_t>&fibsCache) {
 	// base case
 	if (x < 2) return 1;
 
 	uint64_t ans;
 
 	// return answer if in cache
-	if (fibsCache.size() > x) {
+	if (fibsCache.find(x) != fibsCache.end()) {
 		return fibsCache[x];
 	}
 
 	// recursively find answer
 	ans = FibRecurDPWorker(x - 1, fibsCache) + FibRecurDPWorker(x - 2, fibsCache);
 	// store answer
-	fibsCache.push_back(ans);
+	fibsCache.emplace(x, ans);
 	return ans;
+}
+
+uint64_t FibRecurDPTail(uint64_t x) {
+	return FibRecurDPTailWorker(x);
+}
+
+uint64_t FibRecurDPTailWorker(int x, int a, int b) {
+	if (x < 2) {
+		return 1;
+	}
+	return FibRecurDPTailWorker(x - 1, b, a + b);
 }
