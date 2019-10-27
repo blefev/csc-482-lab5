@@ -82,16 +82,15 @@ matrixVec MatrixPower(matrixVec matrix, int power) {
 
 
 uint64_t FibLoop(size_t x) {
-	// set fib(0) and fib(1) as base cases
-	vector<uint64_t> fibsCache{ 1, 1 };
+	uint64_t a = 0, b = 1, c;
 
-	// iterate through from 2 to input, calculate fibonaccis
+	// iterate through from 2 to x, calculate fibonaccis
 	for (size_t i = 2; i <= x; i++) {
-		if (fibsCache.size() <= i) {
-			fibsCache.push_back(fibsCache[i - 1] + fibsCache[i - 2]);
-		}
+		c = a + b;
+		a = b;
+		b = c;
 	}
-	return fibsCache[x];
+	return b;
 }
 
 uint64_t FibRecur(uint64_t x) {
