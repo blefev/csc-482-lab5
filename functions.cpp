@@ -36,14 +36,14 @@ void printMatrix(matrixVec v) {
 }
 
 uint64_t FibMatrix(uint64_t x) {
-	if (x == 0) return 0;
+	if (x == 0) return 1;
 
 	matrixVec squareMatrix(2, vector<uint64_t>(2, 1)),
 		f0f1(2, vector<uint64_t>(1, 1)),
 		resultMatrix;
 
 	squareMatrix[0][0] = 0;
-	f0f1[0][0] = 0;
+	//f0f1[0][0] = 0;
 
 	resultMatrix = MatrixMultiplication(MatrixPower(squareMatrix, x), f0f1);
 
@@ -73,13 +73,13 @@ matrixVec MatrixPower(matrixVec x, int n) {
 
 
 uint64_t FibLoop(size_t x) {
-	array<uint64_t, ARRAY_SIZE> fibs{ 0, 1, 1 };
+	array<uint64_t, ARRAY_SIZE> fibs{ 1, 1 };
 
 	if (fibs[x] != NULL) {
 		return fibs[x];
 	}
 
-	for (size_t i = 3; i <= x; i++) {
+	for (size_t i = 2; i <= x; i++) {
 		if (fibs[i] == NULL) {
 			fibs[i] = fibs[i - 1] + fibs[i - 2];
 		}
@@ -88,20 +88,18 @@ uint64_t FibLoop(size_t x) {
 }
 
 uint64_t FibRecur(uint64_t x) {
-	if (x == 0) return 0;
-	if (x == 1 || x == 2) return 1;
+	if (x < 2) return 1;
 
 	return FibRecur(x - 1) + FibRecur(x - 2);
 }
 
 uint64_t FibRecurDP(size_t x) {
-	vector<uint64_t> fibs{ 0, 1, 1 };
+	vector<uint64_t> fibs{ 1, 1 };
 	return FibRecurDPWorker(x, fibs);
 }
 
 uint64_t FibRecurDPWorker(size_t x, vector<uint64_t> &xs) {
-	if (x == 0) return 0;
-	if (x <= 2) return 1;
+	if (x < 2) return 1;
 
 	uint64_t ans;
 
