@@ -11,9 +11,9 @@ using namespace std;
 
 double timeFunction(string funcName, uint64_t param);
 bool testAllFibFuncs();
-bool testFibFunc(string funcName, uint8_t n);
+bool testFibFunc(string funcName, int n);
 void measureAllFuncs();
-void measureAndRecordFunc(string funcName, uint64_t N, uint8_t nTrials = 100);
+void measureAndRecordFunc(string funcName, uint64_t N, int nTrials = 100);
 
 map<string, function<uint64_t(uint64_t)>> namesToFuncs{
 	{"FibLoop", FibLoop},
@@ -41,24 +41,28 @@ void measureAllFuncs() {
 	for (auto &it : namesToFuncs) {
 		string funcName = it.first;
 		uint64_t maxN = funcMaxNs[funcName];
+		cout << "Testing " << funcName << "\n";
 		measureAndRecordFunc(funcName, maxN);
 	}
 }
 
 // times function and writes results to file
-void measureAndRecordFunc(string funcName, uint64_t N, uint8_t nTrials) {
-	ofstream fout("output" + funcName, ios::app);
+void measureAndRecordFunc(string funcName, uint64_t N, int nTrials) {
+	ofstream fout("output\\" + funcName, ios::trunc);
 
 	double sum = 0;
 	double avg = 0;
 
 	for (uint64_t i = 0; i < N; i++) {
-		for (uint8_t trial = 0; trial < nTrials; trial++) {
+		for (int trial = 0; trial < nTrials; trial++) {
 			double time = timeFunction(funcName, N);
-			sum += sum;
+			sum += time;
+			cout << "Trial " << trial << ", time: " << time << "\n";
+			cout << "Sum: " << sum << "\n";
+
 		}
 		avg = sum / nTrials;
-		fout << N << "\t" << avg << "\n";
+		fout << i << "\t" << avg << "\n";
 	}
 
 	fout.close();
@@ -71,7 +75,7 @@ bool testAllFibFuncs() {
 			testFibFunc("FibMatrix", 94);	
 }
 
-bool testFibFunc(string funcName, uint8_t n) {
+bool testFibFunc(string funcName, int n) {
 	// First 95 fibonaccis (including zero)
 	// fibonacci(94) is the max uint64_t can handle
 	cout << "Testing " << funcName << "\n";
