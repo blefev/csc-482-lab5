@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <typeinfo>
+#include <fstream>
 
 using namespace std;
 
@@ -13,7 +13,7 @@ double timeFunction(string funcName, uint64_t param);
 bool testAllFibFuncs();
 bool testFibFunc(string funcName, uint8_t n);
 void measureAllFuncs();
-void populateNamesToFuncs();
+void measureAndRecordFunc(string funcName, uint64_t N, uint8_t nTrials = 100);
 
 map<string, function<uint64_t(uint64_t)>> namesToFuncs{
 	{"FibLoop", FibLoop},
@@ -22,7 +22,7 @@ map<string, function<uint64_t(uint64_t)>> namesToFuncs{
 	{"FibMatrix", FibMatrix}
 };
 
-const map<string, uint8_t> funcMaxNs{
+map<string, uint64_t> funcMaxNs{
 	{"FibLoop", 45},
 	{"FibRecur", 45},
 	{"FibRecurDP", 94 },
@@ -31,24 +31,37 @@ const map<string, uint8_t> funcMaxNs{
 
 int main()
 {
-	//populateNamesToFuncs();
-	testAllFibFuncs();
+	//testAllFibFuncs();
 	measureAllFuncs();
 
 	return 0;
 }
 
-void populateNamesToFuncs() {
-	namesToFuncs.emplace("FibLoop", FibLoop);
-	namesToFuncs.emplace("FibRecur", FibRecur);
-	namesToFuncs.emplace("FibRecurDP", FibRecurDP);
-	namesToFuncs.emplace("FibMatrix", FibMatrix);
-}
-
 void measureAllFuncs() {
 	for (auto &it : namesToFuncs) {
-		cout << "Function name is: " << it.first << endl;
+		string funcName = it.first;
+		uint64_t maxN = funcMaxNs[funcName];
+		measureAndRecordFunc(funcName, maxN);
 	}
+}
+
+// times function and writes results to file
+void measureAndRecordFunc(string funcName, uint64_t N, uint8_t nTrials) {
+	ofstream fout("output" + funcName, ios::app);
+
+	double sum = 0;
+	double avg = 0;
+
+	for (uint64_t i = 0; i < N; i++) {
+		for (uint8_t trial = 0; trial < nTrials; trial++) {
+			double time = timeFunction(funcName, N);
+			sum += sum;
+		}
+		avg = sum / nTrials;
+		fout << N << "\t" << avg << "\n";
+	}
+
+	fout.close();
 }
 
 bool testAllFibFuncs() {
