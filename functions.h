@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <array>
-#define ARRAY_SIZE 10000
+#define ARRAY_SIZE 93
 #define matrixVec vector<vector<uint64_t> >
 
 #pragma once;

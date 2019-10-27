@@ -32,6 +32,7 @@ map<string, uint64_t> funcMaxNs{
 
 int main(int argc, char** argv)
 {
+	return testAllFibFuncs();
 	if (argv[1] == "test") {
 		return testAllFibFuncs();
 	}
