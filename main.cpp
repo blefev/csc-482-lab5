@@ -15,11 +15,23 @@ bool testFibFunc(string funcName, uint8_t n);
 void measureAllFuncs();
 void populateNamesToFuncs();
 
-map<string, function<uint64_t(uint64_t)>> namesToFuncs;
+map<string, function<uint64_t(uint64_t)>> namesToFuncs{
+	{"FibLoop", FibLoop},
+	{"FibRecur", FibRecur},
+	{"FibRecurDP", FibRecurDP},
+	{"FibMatrix", FibMatrix}
+};
+
+const map<string, uint8_t> funcMaxNs{
+	{"FibLoop", 45},
+	{"FibRecur", 45},
+	{"FibRecurDP", 94 },
+	{"FibMatrix", 94},
+};
 
 int main()
 {
-	populateNamesToFuncs();
+	//populateNamesToFuncs();
 	testAllFibFuncs();
 	measureAllFuncs();
 
@@ -34,7 +46,9 @@ void populateNamesToFuncs() {
 }
 
 void measureAllFuncs() {
-	
+	for (auto &it : namesToFuncs) {
+		cout << "Function name is: " << it.first << endl;
+	}
 }
 
 bool testAllFibFuncs() {
@@ -50,7 +64,7 @@ bool testFibFunc(string funcName, uint8_t n) {
 	cout << "Testing " << funcName << "\n";
 
 	for (uint64_t i = 0; i < n; i++) {
-		function<uint64_t(uint64_t)> func = namesToFuncs.at(funcName);
+		function<uint64_t(uint64_t)> func = namesToFuncs[funcName];
 		uint64_t result = func(i);
 
 		if (result != FIBS[i]) {
@@ -68,7 +82,7 @@ double timeFunction(string funcName, uint64_t param) {
 
 	high_resolution_clock::time_point start = high_resolution_clock::now();
 	
-	function<uint64_t(uint64_t)> func = namesToFuncs.at(funcName);
+	function<uint64_t(uint64_t)> func = namesToFuncs[funcName];
 	func(param);
 		
 	high_resolution_clock::time_point end = high_resolution_clock::now();
