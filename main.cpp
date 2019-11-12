@@ -38,7 +38,8 @@ int main(int argc, char** argv)
 		return testAllFuncs();
 	}
 	
-	measureAllFuncs();
+	testAllFuncs();
+	//measureAllFuncs();
 
 	return 0;
 }
@@ -96,7 +97,7 @@ bool testFibFunc(string funcName, int X) {
 	// fibonacci(93) is the max uint64_t can handle
 	cout << "Testing " << funcName << "\n";
 
-	for (uint64_t i = 1; i < X; i++) {
+	for (uint64_t i = 0; i < X; i++) {
 		// grab function object from map
 		function<uint64_t(uint64_t)> func = namesToFuncs[funcName];
 		// call function with i and store result

@@ -42,7 +42,7 @@ uint64_t FibMatrix(uint64_t x) {
 
 	// declare matrices
 	matrixVec squareMatrix(2, vector<uint64_t>(2, 1)),
-		f0f1(2, vector<uint64_t>(1, 1)), // base case matrix
+		f0f1(2, vector<uint64_t>(1, 1)), // base case matrix. f(0) = 1, f(1) = 1
 		resultMatrix;
 
 	squareMatrix[0][0] = 0; // [[0,1],[1,1]] for matrix powers
@@ -82,7 +82,7 @@ matrixVec MatrixPower(matrixVec matrix, int power) {
 
 
 uint64_t FibLoop(size_t x) {
-	uint64_t a = 0, b = 1, c;
+	uint64_t a = 1, b = 1, c;
 
 	// iterate through from 2 to x, calculate fibonaccis
 	for (size_t i = 2; i <= x; i++) {
@@ -129,9 +129,9 @@ uint64_t FibRecurDPTail(uint64_t x) {
 	return FibRecurDPTailWorker(x);
 }
 
-uint64_t FibRecurDPTailWorker(int x, int a, int b) {
-	if (x < 2) {
-		return 1;
+uint64_t FibRecurDPTailWorker(uint64_t x, uint64_t a, uint64_t b) {
+	if (x == 0) {
+		return a;
 	}
 	return FibRecurDPTailWorker(x - 1, b, a + b);
 }

@@ -16,7 +16,7 @@ uint64_t FibRecur(uint64_t);
 uint64_t FibRecurDP(size_t);
 uint64_t FibRecurDPWorker(size_t, map<uint64_t, uint64_t> &);
 uint64_t FibRecurDPTail(uint64_t);
-uint64_t FibRecurDPTailWorker(int x, int = 1, int = 1);
+uint64_t FibRecurDPTailWorker(uint64_t x, uint64_t = 1, uint64_t = 1);
 uint64_t FibMatrix(uint64_t);
 matrixVec MatrixPower(matrixVec, int);
 matrixVec MatrixMultiplication(matrixVec, matrixVec);
