@@ -1,4 +1,6 @@
-# csc-482-lab5
+# Fibonacci Algorithms
+
+Compare efficiency of several fibonacci generation algorithms, written in C++.
 
 This project was compiled with Visual Studio 2019, and compiled with MSVC. I avoided using Microsoft specific features, so it should compile with g++ as well.
 
