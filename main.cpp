@@ -24,7 +24,7 @@ map<string, function<uint64_t(uint64_t)>> namesToFuncs {
 	{"FibRecurDPTail", FibRecurDPTail}
 };
 
-map<string, uint64_t> funcMaxXs{
+map<string, uint64_t> funcMaxXs {
 	{"FibLoop", 92},
 	{"FibRecur", 30},
 	{"FibRecurDP", 92},
@@ -32,8 +32,7 @@ map<string, uint64_t> funcMaxXs{
 	{"FibRecurDPTail", 92}
 };
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	if (argc > 1 && string(argv[1]) == "test") {
 		return testAllFuncs();
 	}
